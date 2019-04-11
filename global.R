@@ -1,4 +1,6 @@
 library(DT)
 library(ggplot2)
+library(shiny)
 
-load("inst/data/latestGames.Rdata")
+
+IrisModel<-xgb.load("iris.model")
