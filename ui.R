@@ -18,7 +18,7 @@ dashboardPage(
     numericInput(
       "p.length"
       ,'Petal Length:'
-      ,1)
+      ,2)
     ,
     numericInput(
       "p.width"
@@ -29,8 +29,22 @@ dashboardPage(
     fluidRow(
       box(DT::dataTableOutput("predictions"))
       # ,box(plotOutput("graph"))
+    ),
+    fluidRow(
+      tabPanel( 'Plot', plotOutput('scatter'))
+    ),
+    fluidRow(
+      tabPanel("Plot", plotOutput("den1"))
+    ),
+    fluidRow(
+      tabPanel("Plot", plotOutput("den2"))
+    ),
+    fluidRow(
+      tabPanel("Plot", plotOutput("den3"))
+    ) ,
+    fluidRow(
+      tabPanel("Plot", plotOutput("den4"))
     )
-    
     )
   )
 
