@@ -2,23 +2,19 @@ library(tidyverse)
 library(shiny)
 library(xgboost)
 server <- function(input, output) {
-    newPredict<-reactive({data.frame(Sepal.Length=input$sep.length, Sepal.Width=input$sep.width,
-                           Petal.Length=input$p.length, Petal.Width=input$p.width) 
-      #newPredict<-as.matrix(newPredict())
-     
- 
+  newPredict <- reactive({
+    data.frame(
+      Sepal.Length=input$sep.length, 
+      Sepal.Width=input$sep.width,
+      Petal.Length=input$p.length, 
+      Petal.Width=input$p.width)
+  })
   
-       # x<-reactive({
-        #  c(input$sep.length
-       #   ,input$sep.width
-       #  , input$p.length 
-        #  ,input$p.width )
-        })
-        
- output$predictions<-DT::renderDataTable({
-   label= as.matrix(c("Sepal.Length", "Sepal.Width", "Petal.Length","Petal.Width","Species")  )
-   newPredictout<-xgb.DMatrix(as.matrix(sapply(newPredict(),as.numeric)),label=label)
-    predict(IrisModel,newPredictout) 
+  output$predictions <- DT::renderDataTable({
+    data.frame(
+      iris = c("setosa", "versicolor", "virginica")
+      ,Probs = predict(IrisModel, as.matrix(newPredict()))
+    )
 })
  output$scatter<-renderPlot({
    plot(x=iris$Sepal.Length, y=iris$Sepal.Width, 
